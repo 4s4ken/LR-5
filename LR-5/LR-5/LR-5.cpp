@@ -2,6 +2,8 @@
 #include<string>
 #include<sstream>
 #include<windows.h>
+#include <limits> 
+#include <math.h> 
 using namespace std;
 int main()
 {
@@ -12,8 +14,8 @@ int main()
      cout << "Введите сообщение, которое будет закодированно: " << endl;
 inputstr:
     getline(cin,cesar);
-        for (int i = 0;i < cesar.size(); i++)
-            if (int(cesar[i]) < 32 && int(cesar[i]) > 126)
+    for (int i = 0;i < cesar.size(); i++)
+            if (int(cesar[i]) < 32 || int(cesar[i]) > 126 || int(cesar[i]) < 0)
             {
                 cout << "Ошибка в вводе сообщения, попробуйте снова." << endl;
                 goto inputstr;
@@ -21,8 +23,10 @@ inputstr:
     cout << "Введите шаг кодировки: " << endl;
 inputk:
     cin >> k;
-        if(cin.good() == false)
+        if (!cin)
         {
+            cin.clear();
+            cin.ignore(5,'\n');
             cout << "Ошибка в вводе шага кодировки, попробуйте снова." << endl;
             goto inputk;
         }
